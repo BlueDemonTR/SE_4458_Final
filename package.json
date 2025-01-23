@@ -1,0 +1,17 @@
+{
+  "name": "SE_4458",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Poyraz Sivrikaya",
+  "license": "MIT",
+  "main": "app.js",
+  "keywords": [
+    "nodejs",
+    "bootstrap",
+    "express"
+  ],
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^8.9.5"
+  }
+}
