@@ -9,9 +9,9 @@ const port = 8080;
 config()
 
 import { connect } from 'mongoose';
-import axios from 'axios';
-import { read } from 'xlsx';
-import { route } from './api';
+import route from './api';
+import hasWeeklySchedulePassed from './lib/hasWeeklySchedulePassed';
+import importMedicine from './api/importMedicine';
 
 async function startDatabase() {
   await connect(process.env.DB_URI, {})
@@ -40,3 +40,5 @@ app.use('/', router);
 app.listen(port, function () {
   console.log('Example app listening on port 8080!')
 })
+
+hasWeeklySchedulePassed().then(x => x && importMedicine())

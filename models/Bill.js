@@ -1,13 +1,14 @@
 import { Schema, model } from 'mongoose'
 
-const PrescriptionSchema = new Schema({
+const BillSchema = new Schema({
 	owner: {
 		type: Schema.Types.ObjectId,
 		ref: 'User',
 		required: true
 	},
-	patientTC: {
-		type: String,
+	prescription: {
+		type: Schema.Types.ObjectId,
+		ref: 'Prescription',
 		required: true
 	},
 	content: {
@@ -25,6 +26,6 @@ const PrescriptionSchema = new Schema({
 	}
 })
 
-const Prescription = model('Prescription', PrescriptionSchema)
+const Bill = model('Bill', BillSchema)
 
-export default Prescription
+export default Bill

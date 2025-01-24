@@ -17,7 +17,7 @@ const connectionObject = {
 }
 
 function handleSend(data, status = 200) {
-  this.status(status)
+	this.status(status)
 
 	this.write(JSON.stringify(data))
 	this.end()
@@ -75,4 +75,4 @@ router.use('*', function(req, res, next) {
   handleMessage(req, res)
 });
 
-module.exports = router;
+export default router

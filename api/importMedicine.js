@@ -1,7 +1,39 @@
 import axios from "axios"
 import { read } from "xlsx"
+import { Medicine, Prescription } from "../models"
 
-async function importMedicine() {
+async function markMedicineAsOld() {
+	const prescriptions = await Prescription.find()
+
+	const set = new Set()
+
+	prescriptions.forEach(prescription => {
+		prescription.content.forEach(set.add)
+	})
+
+	await Promise.all(
+		Array.from(set).map(async (medicine) => {
+			await Medicine.findByIdAndUpdate(medicine, { old: true })
+		})
+	)
+}
+
+async function deleteAllNonOld() {
+	await Medicine.deleteMany({ old: false })
+}
+
+async function addMedicines(names) {
+	await Promise.all(
+		names.map(async medicine => {
+			await Medicine.create({
+				name: medicine,
+				price: Math.floor(Math.random() * 200)
+			})
+		})
+	)
+}
+
+async function importMedicineList() {
 	const res = await axios.get('https://www.titck.gov.tr/dinamikmodul/43')
 	const page = String(res.data)
 	const tableStart = page.indexOf('id="myTable"')
@@ -23,8 +55,21 @@ async function importMedicine() {
   
 	  urunListesi.push(aktifUrunler[key].v)
 	})
+
+
   
 	return urunListesi
+}
+
+async function importMedicine(req, res, id) {
+	console.log('PULLING MEDICINE');
+	
+
+	await markMedicineAsOld()
+	await deleteAllNonOld()
+	await addMedicines(
+		await importMedicineList()
+	)
 }
 
 export default importMedicine
