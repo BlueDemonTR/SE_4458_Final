@@ -1,9 +1,8 @@
 import { Schema, model } from 'mongoose'
 
 const MedicineSchema = new Schema({
-	name: String,
-	price: Number
-})
+	name: String
+}, { timestamps: true })
 
 const Medicine = model('Medicine', MedicineSchema)
 

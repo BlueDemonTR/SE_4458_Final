@@ -19,6 +19,7 @@
     "dotenv": "^16.4.7",
     "esm-wallaby": "^3.2.32",
     "express": "^4.16.4",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
     "nodemon": "^3.1.9",
     "puppeteer": "18.0.1",
