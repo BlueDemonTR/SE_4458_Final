@@ -12,6 +12,7 @@ import { connect } from 'mongoose';
 import route from './api';
 import hasWeeklySchedulePassed from './lib/hasWeeklySchedulePassed';
 import importMedicine from './lib/importMedicine';
+import hourlyScheduler from './lib/scheduler';
 
 async function startDatabase() {
   await connect(process.env.DB_URI, {})
@@ -41,4 +42,4 @@ app.listen(port, function () {
   console.log('Example app listening on port 8080!')
 })
 
-hasWeeklySchedulePassed().then(x => x && importMedicine())
+hourlyScheduler()
