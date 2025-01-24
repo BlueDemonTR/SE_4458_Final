@@ -59,6 +59,11 @@ const Button = (props) => {
                 spacing='compact'
                 {...props}
                 onClick={props.disabled ? () => null : props.onClick}
+                style={props.disabled ? {
+                    background: 'gray'
+                } : {
+
+                }}
             >
                 {children}
             </AtlasButton>
