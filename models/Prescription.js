@@ -22,6 +22,10 @@ const PrescriptionSchema = new Schema({
 			}
 		}],
 		default: []
+	},
+	complete: {
+		type: Boolean,
+		default: false
 	}
 })
 

@@ -2,7 +2,7 @@ var express = require('express');
 const { verify } = require('jsonwebtoken');
 const { default: getAuthentication } = require('./getAuthentication');
 const { default: searchMedicine } = require('./searchMedicine');
-const { default: importMedicine } = require('./importMedicine');
+const { default: importMedicine } = require('../lib/importMedicine');
 
 var router = express.Router();
 

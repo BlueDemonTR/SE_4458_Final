@@ -13,6 +13,22 @@ async function createBill(req, res, id) {
 	})
 
 	res.send(bill)
+
+	const bills = await Bill.find({ prescription })
+	const covered = new Set()
+
+	bills.forEach(bill => {
+		bill.content.forEach(item => {
+			covered.add(item.medicine)
+		})
+	})
+
+
+	const _prescription = await Prescription.findById(prescription)
+
+	if(!_prescription.content.find(item => covered.has(item.medicine))) {
+		await _prescription.updateOne({ complete: true })
+	}
 }
 
 export default createBill

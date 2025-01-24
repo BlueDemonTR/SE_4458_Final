@@ -11,7 +11,7 @@ config()
 import { connect } from 'mongoose';
 import route from './api';
 import hasWeeklySchedulePassed from './lib/hasWeeklySchedulePassed';
-import importMedicine from './api/importMedicine';
+import importMedicine from './lib/importMedicine';
 
 async function startDatabase() {
   await connect(process.env.DB_URI, {})
