@@ -1,36 +1,25 @@
 import axios from "axios"
 import { read } from "xlsx"
-import { Medicine, Prescription } from "../models"
-
-async function markMedicineAsOld() {
-	const prescriptions = await Prescription.find()
-
-	const set = new Set()
-
-	prescriptions.forEach(prescription => {
-		prescription.content.forEach(item => {
-			set.add(item.medicine)
-		})
-	})
-
-	await Promise.all(
-		Array.from(set).map(async (medicine) => {
-			await Medicine.findByIdAndUpdate(medicine, { old: true })
-		})
-	)
-}
+import { Medicine } from "../models"
+import { createClient } from 'redis'
 
 async function deleteAllNonOld() {
-	await Medicine.deleteMany({ old: false })
+	await Medicine.deleteMany({ })
 }
 
 async function addMedicines(names) {
 	await Promise.all(
-		names.map(async medicine => {
-			await Medicine.create({
-				name: medicine,
+		names.map(async medicineName => {
+			const medicine = await Medicine.create({
+				name: medicineName,
 				price: Math.floor(Math.random() * 200)
 			})
+
+			const client = await createClient()
+				.on('error', err => console.log('Redis Client Error', err))
+				.connect();
+				
+			await client?.set(medicine.name, medicine._id);
 		})
 	)
 }
@@ -59,20 +48,20 @@ async function importMedicineList() {
 	  urunListesi.push(aktifUrunler[key].v)
 	})
 
-
-  
 	return urunListesi
 }
 
 async function importMedicine(req, res, id) {
 	console.log('PULLING MEDICINE');
-	
 
-	await markMedicineAsOld()
 	await deleteAllNonOld()
+	console.log('MEDICINES DELETED')
+
 	await addMedicines(
 		await importMedicineList()
 	)
+
+	console.log('MEDICINE ADDED');
 }
 
 export default importMedicine

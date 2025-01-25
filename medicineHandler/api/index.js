@@ -1,23 +1,16 @@
-import createBill from './createBill';
-import createPrescription from './createPrescription';
-import getPrescription from './getPrescription';
-import verifyTC from './verifyTC';
-
 var express = require('express');
 const { verify } = require('jsonwebtoken');
-const { default: getAuthentication } = require('./getAuthentication');
+const { default: searchMedicine } = require('./searchMedicine');
+const { default: importMedicine } = require('./importMedicine');
 
 var router = express.Router();
 
 const connectionObject = {
 	"GET": {
+		'/importMedicine': importMedicine
 	},
 	"POST": {
-		'/getAuthentication': getAuthentication,
-		'/getPrescription': getPrescription,
-		'/verifyTC': verifyTC,
-		'/createBill': createBill,
-		'/createPrescription': createPrescription
+		'/searchMedicine': searchMedicine
 	}
 }
 

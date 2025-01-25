@@ -11,7 +11,10 @@ const Pharmacy = ({ user, token }) => {
 	const [content, setContent] = useState([])
 	const [patient, setPatient] = useState(null)
 	const [search, setSearch] = useState('')
-	const [results, setResults] = useState([])
+	const [_results, setResults] = useState([])
+	const [prices, setPrices] = useState([])
+	
+	const results = search ? _results : prescription?.content.map(x => x.medicine.name) 
 
 	const { patientTC } = prescription || {}
 
@@ -27,7 +30,6 @@ const Pharmacy = ({ user, token }) => {
 		if(!res) return
 
 		setPrescription(res)
-
 	}
 
 	async function verifyTC() {
@@ -84,6 +86,19 @@ const Pharmacy = ({ user, token }) => {
 		window.location.reload()
 	}
 
+	async function calculatePrice() {
+		const data = {
+			content: content.filter(x => x.count > 0)
+		}
+
+		const res = await Api.post(
+			'/calculatePrice',
+			data
+		)
+		if(!res) return
+		setPrices(res)
+	}
+
 	function handleAddMedicine() {
 		const medicineName = search
 
@@ -124,6 +139,18 @@ const Pharmacy = ({ user, token }) => {
 		<Col pad='8px' bg='#BBBBBB' wid='100vw' ht='100vh' noFlex centerAll>
 			<Row gap='8px'>
 				<Input 
+					value={prescriptionID}
+					handleChange={setPrescriptionID}
+					label={'Prescription ID'}
+				/>
+
+				<Button onClick={getPrescription}>
+					Verify
+				</Button>
+			</Row>
+
+			<Row gap='8px'>
+				<Input 
 					value={patientTC}
 					disabled
 					label={'Patient TC'}
@@ -150,7 +177,7 @@ const Pharmacy = ({ user, token }) => {
 						/>
 
 						<Button 
-							disabled={results.includes(search)}
+							disabled={results?.includes(search)}
 							onClick={handleAddMedicine}
 						>
 							Add
@@ -159,7 +186,7 @@ const Pharmacy = ({ user, token }) => {
 
 					<Row>
 						<Col marg='2px' pad='4px' bg='white' wid='300px' ht='200px' scrollY noFlex start>
-							{results.map(x => (
+							{results?.map(x => (
 								<Clickable onClick={() => handleSearch(x)}>
 									<Text>
 										{x}
@@ -179,6 +206,10 @@ const Pharmacy = ({ user, token }) => {
 							))}
 						</Col>
 					</Row>
+
+					<Button onClick={calculatePrice}>
+						Calculate Price
+					</Button>
 
 					<Button onClick={submit}>
 						Submit

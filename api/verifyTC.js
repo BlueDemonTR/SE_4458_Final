@@ -1,5 +1,3 @@
-import { Medicine, User } from "../models"
-
 async function verifyTC(req, res) {
 	const { patientTC } = req.body
 	

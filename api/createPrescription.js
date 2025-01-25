@@ -1,5 +1,5 @@
 import authorize from "../lib/authorize"
-import { Medicine, Prescription, User } from "../models"
+import { Prescription, User } from "../models"
 
 async function createPrescription(req, res, id) {
 	const { content, patientTC } = req.body

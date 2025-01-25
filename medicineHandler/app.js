@@ -5,19 +5,18 @@ const router = Router();
 
 var cors = require('cors')
 
-
 import { connect } from 'mongoose';
 import route from './api';
 import bodyParser from 'body-parser';
 
 
 const path = __dirname + '/views/';
-const port = 8080;
+const port = 8081;
 
 config()
 
 const corsSettings = {
-  origin: ['http://127.0.0.1:57958', 'http://localhost:3000']
+  origin: ['http://127.0.0.1:57958', 'http://localhost:3000', 'http://localhost:8080']
 }
 
 app.use(bodyParser.json())
@@ -34,14 +33,6 @@ startDatabase()
 router.use(function (req,res,next) {
   console.log('/' + req.method);
   next();
-});
-
-router.get('/', function(req,res){
-  res.sendFile(path + 'index.html');
-});
-
-router.get('/sharks', function(req,res){
-  res.sendFile(path + 'sharks.html');
 });
 
 app.use('/api', route);

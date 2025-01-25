@@ -13,10 +13,7 @@ const BillSchema = new Schema({
 	},
 	content: {
 		type: [{
-			medicine: {
-				type: Schema.Types.ObjectId,
-				ref: 'Medicine'
-			},
+			medicine: String,
 			count: {
 				type: Number,
 				min: 0

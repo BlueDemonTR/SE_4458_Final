@@ -1,16 +1,18 @@
 import { Medicine, User } from "../models"
+import axios from 'axios'
 
 async function searchMedicine(req, res) {
 	const { name = '', skip = 0 } = req.body
 
-	const medicines = await Medicine.find({
-		name: new RegExp(name, 'i'),
-		old: false
-	})
-		.skip(skip)
-		.limit(50)
+	try {
+		const _res = await axios.post('http://localhost:8081/api/searchMedicine', req.body)
 
-	res.send({ medicines: medicines.map(x => x.name) })
+		res.send(_res.data)
+	} catch (e) {
+		console.log(e);
+		
+		res.end()
+	}
 }
 
 export default searchMedicine
