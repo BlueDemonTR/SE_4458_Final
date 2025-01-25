@@ -2,7 +2,6 @@ import { config } from 'dotenv';
 import express, { Router } from 'express';
 const app = express();
 const router = Router();
-import Queue from 'queue'
 
 var cors = require('cors')
 
@@ -11,15 +10,15 @@ import { connect } from 'mongoose';
 import route from './api';
 import bodyParser from 'body-parser';
 
-const port = 8082;
+
+const path = __dirname + '/views/';
+const port = 8083;
 
 config()
 
 const corsSettings = {
-  origin: ['http://127.0.0.1:57958', 'http://localhost:3000', 'http://localhost:8082']
+  origin: ['http://127.0.0.1:57958', 'http://localhost:3000']
 }
-
-global.queue = new Queue({ results: [], autostart: true })
 
 app.use(bodyParser.json())
 app.use(cors(corsSettings))
@@ -37,7 +36,16 @@ router.use(function (req,res,next) {
   next();
 });
 
+router.get('/', function(req,res){
+  res.sendFile(path + 'index.html');
+});
+
+router.get('/sharks', function(req,res){
+  res.sendFile(path + 'sharks.html');
+});
+
 app.use('/api', route);
+app.use(express.static(path));
 app.use('/', router);
 
 app.listen(port, function () {
