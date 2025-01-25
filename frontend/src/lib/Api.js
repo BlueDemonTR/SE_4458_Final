@@ -8,6 +8,10 @@ const Api = {
             const connectionString = url_header + url,
                 config = { headers: {} }
 
+            if(global.token) {
+                config.headers.Authorization = `Bearer ${global.token}`
+            }
+
             const res = await axios.get(
                 connectionString,
                 config
@@ -27,6 +31,10 @@ const Api = {
         try {
             const connectionString = url_header + url,
                 config = { headers: {} }
+            
+            if(global.token) {
+                config.headers.Authorization = `Bearer ${global.token}`
+            }
 
             const res = await axios.delete(
                 connectionString,
@@ -48,6 +56,10 @@ const Api = {
             const connectionString = url_header + url,
                 config = { headers: {} }
 
+            if(global.token) {
+                config.headers.Authorization = `Bearer ${global.token}`
+            }
+            
             const res = await axios.post(
                 connectionString, 
                 data,

@@ -16,7 +16,7 @@ async function getAuthentication(req, res) {
 		{ expiresIn: '1d' }
 	)
 
-	res.send({ token })
+	res.send({ token, user })
 }
 
 export default getAuthentication

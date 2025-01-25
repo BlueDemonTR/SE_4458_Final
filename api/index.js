@@ -1,3 +1,7 @@
+import createBill from './createBill';
+import createPrescription from './createPrescription';
+import verifyTC from './verifyTC';
+
 var express = require('express');
 const { verify } = require('jsonwebtoken');
 const { default: getAuthentication } = require('./getAuthentication');
@@ -12,7 +16,10 @@ const connectionObject = {
 	},
 	"POST": {
 		'/getAuthentication': getAuthentication,
-		'/searchMedicine': searchMedicine
+		'/searchMedicine': searchMedicine,
+		'/verifyTC': verifyTC,
+		'/createBill': createBill,
+		'/createPrescription': createPrescription
 	}
 }
 
@@ -51,13 +58,17 @@ function handleMessage(req, res) {
 
 	if(req?.headers?.authorization) {
 		try {
-      const token = req.headers.authorization
+			const token = req.headers.authorization.slice(7)
+
+			console.log(token)
 
 			id = verify(
 				token, 
-				config.JWT_SECRET
+				process.env.JWT_SECRET
 			).data
 		} catch (error) {
+			console.log(error);
+			
       res.status(401)
 			res.write('Token Expired')
 			
@@ -72,6 +83,7 @@ function handleMessage(req, res) {
 }
 
 router.use('*', function(req, res, next) {
+
   handleMessage(req, res)
 });
 

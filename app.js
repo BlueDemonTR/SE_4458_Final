@@ -3,16 +3,29 @@ import express, { Router } from 'express';
 const app = express();
 const router = Router();
 
-const path = __dirname + '/views/';
-const port = 8080;
+var cors = require('cors')
 
-config()
 
 import { connect } from 'mongoose';
 import route from './api';
 import hasWeeklySchedulePassed from './lib/hasWeeklySchedulePassed';
 import importMedicine from './lib/importMedicine';
 import hourlyScheduler from './lib/scheduler';
+import bodyParser from 'body-parser';
+
+
+const path = __dirname + '/views/';
+const port = 8080;
+
+config()
+
+const corsSettings = {
+  origin: ['http://127.0.0.1:57958', 'http://localhost:3000']
+}
+
+app.use(bodyParser.json())
+app.use(cors(corsSettings))
+
 
 async function startDatabase() {
   await connect(process.env.DB_URI, {})

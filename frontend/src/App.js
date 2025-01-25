@@ -2,33 +2,27 @@ import logo from './logo.svg';
 import './App.css';
 import { Button, Col, Row } from './components';
 import { useState } from 'react';
-import { Doctor, Pharmacy } from './screens';
+import { Auth, Doctor, Pharmacy } from './screens';
 
-const DOCTOR = false, PHARMACY = true
+const DOCTOR = 'doctor', PHARMACY = 'pharmacy'
 
 function App() {
-  const [currentPage, setCurrentPage] = useState(PHARMACY)
+  const [user, setUser] = useState(null)
+  const currentPage = user?.role
+
+  function handleLogin({ user, token }) {
+    setUser(user)
+    global.token = token
+  }
   
   return (
     <Col>
-      <Row>
-        <Button 
-          disabled={currentPage === DOCTOR} 
-          onClick={() => setCurrentPage(DOCTOR)}
-        >
-          DOCTOR
-        </Button>
+      {!user && (
+        <Auth handleLogin={handleLogin} />
+      )}
 
-        <Button 
-          disabled={currentPage === PHARMACY}
-          onClick={() => setCurrentPage(PHARMACY)}
-        >
-          PHARMACY
-        </Button>
-      </Row>
-
-      {currentPage === DOCTOR && <Doctor />}
-      {currentPage === PHARMACY && <Pharmacy />}
+      {currentPage === DOCTOR && <Doctor token={global.token} user={user}/>}
+      {currentPage === PHARMACY && <Pharmacy token={global.token} user={user}/>}
     </Col>
   );
 }

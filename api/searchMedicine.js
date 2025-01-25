@@ -10,7 +10,7 @@ async function searchMedicine(req, res) {
 		.skip(skip)
 		.limit(50)
 
-	res.send({ medicines })
+	res.send({ medicines: medicines.map(x => x.name) })
 }
 
 export default searchMedicine

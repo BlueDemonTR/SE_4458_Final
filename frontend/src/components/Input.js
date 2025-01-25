@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import Col from './Col'
+import Text from './Text'
 
 const StyledInput = styled.input`
   width: ${props => props.wid || 'auto'};
@@ -17,7 +19,7 @@ const StyledTextArea = styled.textarea`
 `
 
 const Input = (props) => {
-  const { handleChange = console.log, value } = props
+  const { handleChange = console.log, value, label } = props
 
   return (
     <React.Fragment>
@@ -29,11 +31,19 @@ const Input = (props) => {
             value={value}
           />
         ) : ( 
-          <StyledInput
-            {...props}
-            onChange={({ target }) => handleChange(target.value)}
-            value={value}
-          />
+          <Col>
+            {label && (
+                <Text>
+                  {label}
+                </Text>
+            )}
+
+            <StyledInput
+              {...props}
+              onChange={({ target }) => handleChange(target.value)}
+              value={value}
+            />
+          </Col>
         )
       }
     </React.Fragment>
