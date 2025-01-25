@@ -1,3 +1,5 @@
+import { Bill, Prescription, User } from "../models";
+
 async function sendEmail(email, content) {
 	console.log('TO: ' + email);
 
@@ -5,7 +7,6 @@ async function sendEmail(email, content) {
 }
 
 async function notifyPharmacies() {
-	/*
 	const unfinished = await Prescription.find({ complete: false })
 
 	const pharmacies = await User.find({ role: 'pharmacy' })
@@ -32,7 +33,6 @@ async function notifyPharmacies() {
 	}
 
 	pharmacies.forEach((pharmacy) => sendEmail(pharmacy.email, message))
-	*/
 }
 
 export default notifyPharmacies

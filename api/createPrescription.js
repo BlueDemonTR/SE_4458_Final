@@ -1,18 +1,19 @@
 import authorize from "../lib/authorize"
-import { Prescription, User } from "../models"
 
 async function createPrescription(req, res, id) {
-	const { content, patientTC } = req.body
-	
 	const user = await authorize(id, 'doctor')
 
-	const prescription = await Prescription.create({
-		content,
-		patientTC,
-		owner: user
-	})
+	if(!user) return res.end()
 
-	res.send(prescription)
+	try {
+		const _res = await axios.post('http://localhost:8082/api/createDoctor', req.body)
+
+		res.send(_res.data)
+	} catch (e) {
+		console.log(e);
+		
+		res.end()
+	}
 }
 
 export default createPrescription

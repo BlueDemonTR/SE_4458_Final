@@ -5,19 +5,20 @@ const router = Router();
 
 var cors = require('cors')
 
+
 import { connect } from 'mongoose';
 import route from './api';
 import bodyParser from 'body-parser';
 
-
-const path = __dirname + '/views/';
-const port = 8081;
+const port = 8082;
 
 config()
 
 const corsSettings = {
-  origin: ['http://127.0.0.1:57958', 'http://localhost:3000', 'http://localhost:8080']
+  origin: ['http://127.0.0.1:57958', 'http://localhost:3000', 'http://localhost:8082']
 }
+
+global.queue = new Queue({ results: [], autostart: true })
 
 app.use(bodyParser.json())
 app.use(cors(corsSettings))

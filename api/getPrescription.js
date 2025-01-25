@@ -1,15 +1,17 @@
-import { sign } from "jsonwebtoken"
-import { Prescription } from "../models"
+async function getPrescription(req, res, id) {
+	const user = await authorize(id)
 
-async function getPrescription(req, res) {
-	const { prescriptionID } = req.body
+	if(!user) return res.end()
 
-	const prescription = await Prescription.findById(prescriptionID)
-		.populate('content.medicine')
+	try {
+		const _res = await axios.post('http://localhost:8082/api/getPrescription', req.body)
 
-	if(!prescription) res.end()
-
-	res.send({ prescription })
+		res.send(_res.data)
+	} catch (e) {
+		console.log(e);
+		
+		res.end()
+	}
 }
 
 export default getPrescription

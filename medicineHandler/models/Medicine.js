@@ -9,6 +9,9 @@ const MedicineSchema = new Schema({
 	}
 }, { timestamps: true })
 
+// MEDICINE ARE INDEXED BY NAME HERE
+MedicineSchema.index({ name: 1 })
+
 const Medicine = model('Medicine', MedicineSchema)
 
 export default Medicine

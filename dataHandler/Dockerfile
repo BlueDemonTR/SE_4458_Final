@@ -14,4 +14,4 @@ COPY --chown=node:node . .
 
 EXPOSE 8080
 
-CMD [ "node", "-r esm-wallaby ./app.js" ]
+CMD [ "node", "app.js" ]
