@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
 import express, { Router } from 'express';
+import { fork } from 'child_process'
 const app = express();
 const router = Router();
 
@@ -9,6 +10,7 @@ var cors = require('cors')
 import { connect } from 'mongoose';
 import route from './api';
 import bodyParser from 'body-parser';
+import { spawnd } from 'spawnd';
 
 
 const path = __dirname + '/frontend/build';
@@ -47,3 +49,7 @@ app.use('/', router);
 app.listen(port, function () {
   console.log(`Example app listening on port ${port}!`)
 })
+
+fork('./medicineHandler/app.js')
+fork('./notificationsHandler/app.js')
+fork('./dataHandler/app.js')

@@ -25,9 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
     "nodemon": "^3.1.9",
-    "puppeteer-core": "^24.1.1",
-    "queue": "^7.0.0",
-    "redis": "^4.7.0",
+    "spawnd": "^11.0.0",
     "xlsx": "^0.18.5"
   }
 }
