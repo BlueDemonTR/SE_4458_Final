@@ -11,7 +11,7 @@ import route from './api';
 import bodyParser from 'body-parser';
 
 
-const path = __dirname + '/views/';
+const path = __dirname + '/frontend/build';
 const port = 8080;
 
 config()
@@ -38,10 +38,6 @@ router.use(function (req,res,next) {
 
 router.get('/', function(req,res){
   res.sendFile(path + 'index.html');
-});
-
-router.get('/sharks', function(req,res){
-  res.sendFile(path + 'sharks.html');
 });
 
 app.use('/api', route);
