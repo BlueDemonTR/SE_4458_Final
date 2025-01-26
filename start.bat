@@ -1,0 +1,1 @@
+start yarn start && cd dataHandler && start yarn start && cd ../medicineHandler && start yarn start && cd ../notificationsHandler && start yarn start

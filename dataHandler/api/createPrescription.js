@@ -3,14 +3,23 @@ import authorize from "../lib/authorize"
 import { Prescription, User } from "../models"
 
 async function createPrescription(req, res, id) {
-	const { content, patientTC } = req.body
+	const { content, patientTC, owner } = req.body
 	
 	global.queue.push(async cb => {
-		const prescription = await Prescription.create({
-			content,
-			patientTC,
-			owner: id
-		})
+		let prescription
+
+		try {
+
+			prescription = await Prescription.create({
+				content,
+				patientTC,
+				owner
+			})
+
+		} catch (e) {
+			console.log(e);	
+		}
+		
 	
 		res.send(prescription)
 		cb(null, prescription)

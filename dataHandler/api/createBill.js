@@ -2,13 +2,13 @@ import authorize from "../lib/authorize"
 import { Bill, Prescription } from "../models"
 
 async function createBill(req, res, id) {
-	const { content, prescription } = req.body
+	const { content, prescription, owner } = req.body
 	
 	global.queue.push(async cb => {
 		const bill = await Bill.create({
 			content,
 			prescription,
-			owner: id
+			owner
 		})
 	
 		res.send(bill)

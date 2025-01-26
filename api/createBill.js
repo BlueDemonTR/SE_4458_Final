@@ -1,3 +1,4 @@
+import axios from "axios"
 import authorize from "../lib/authorize"
 
 async function createBill(req, res, id) {
@@ -6,7 +7,7 @@ async function createBill(req, res, id) {
 	if(!user) return res.end()
 
 	try {
-		const _res = await axios.post('http://localhost:8082/api/createBill', req.body)
+		const _res = await axios.post('http://localhost:8082/api/createBill', { ...req.body, owner: id })
 
 		res.send(_res.data)
 	} catch (e) {

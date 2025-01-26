@@ -1,4 +1,3 @@
-import { Medicine, User } from "../models"
 import axios from 'axios'
 
 async function searchMedicine(req, res) {

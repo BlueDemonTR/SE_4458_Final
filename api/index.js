@@ -1,6 +1,9 @@
 import createBill from './createBill';
 import createPrescription from './createPrescription';
 import getPrescription from './getPrescription';
+import importMedicine from './importMedicine';
+import notifyPharmacies from './notifyPharmacies';
+import searchMedicine from './searchMedicine';
 import verifyTC from './verifyTC';
 
 var express = require('express');
@@ -11,13 +14,16 @@ var router = express.Router();
 
 const connectionObject = {
 	"GET": {
+		'/importMedicine': importMedicine,
+		'/notifyPharmacies': notifyPharmacies
 	},
 	"POST": {
 		'/getAuthentication': getAuthentication,
 		'/getPrescription': getPrescription,
 		'/verifyTC': verifyTC,
 		'/createBill': createBill,
-		'/createPrescription': createPrescription
+		'/createPrescription': createPrescription,
+		'/searchMedicine': searchMedicine
 	}
 }
 
@@ -58,12 +64,10 @@ function handleMessage(req, res) {
 		try {
 			const token = req.headers.authorization.slice(7)
 
-			console.log(token)
-
 			id = verify(
 				token, 
 				process.env.JWT_SECRET
-			).data
+			).id
 		} catch (error) {
 			console.log(error);
 			
