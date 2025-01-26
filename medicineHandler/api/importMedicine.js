@@ -1,7 +1,6 @@
 import axios from "axios"
 import { read } from "xlsx"
 import { Medicine } from "../models"
-import { createClient } from 'redis'
 
 async function deleteAllNonOld() {
 	await Medicine.deleteMany({ })

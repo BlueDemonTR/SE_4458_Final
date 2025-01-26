@@ -27,6 +27,10 @@ app.use(cors(corsSettings))
 
 
 async function startDatabase() {
+  console.log('************************************************************')
+  console.log('CONNECTING TO: ', process.env.DB_URI)
+  console.log('************************************************************')
+
   await connect(process.env.DB_URI, {})
   console.log('connected to database')
 }
