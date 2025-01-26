@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url_header = 'https://se-4458-final-bfc5gzfhdhgkase5.italynorth-01.azurewebsites.net/' //process.env.REACT_APP_API_URL
+const url_header = 'https://se-4458-final-bfc5gzfhdhgkase5.italynorth-01.azurewebsites.net/api' //process.env.REACT_APP_API_URL
 
 const Api = {
     get: async (url) => {
