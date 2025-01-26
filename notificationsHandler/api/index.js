@@ -46,7 +46,7 @@ function handleMessage(req, res) {
 
 	let id
 
-	if(req?.headers?.authorization) {
+	if(req.headers.authorization) {
 		try {
 			const token = req.headers.authorization.slice(7)
 

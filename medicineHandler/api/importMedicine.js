@@ -14,12 +14,6 @@ async function addMedicines(names) {
 				name: medicineName,
 				price: Math.floor(Math.random() * 200)
 			})
-
-			const client = await createClient()
-				.on('error', err => console.log('Redis Client Error', err))
-				.connect();
-				
-			await client?.set(medicine.name, medicine._id);
 		})
 	)
 }
