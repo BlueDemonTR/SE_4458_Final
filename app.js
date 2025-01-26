@@ -19,7 +19,9 @@ const port = 8080;
 config()
 
 const corsSettings = {
-  origin: ['http://127.0.0.1:57958', 'http://localhost:3000', 'https://se-4458-final-bfc5gzfhdhgkase5.italynorth-01.azurewebsites.net/']
+  origin: function (origin, callback) {
+    callback(null, true)
+  }
 }
 
 app.use(bodyParser.json())
