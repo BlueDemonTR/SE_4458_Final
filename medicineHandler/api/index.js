@@ -1,3 +1,5 @@
+import getPrice from './getPrice.js';
+
 var express = require('express');
 const { verify } = require('jsonwebtoken');
 const { default: searchMedicine } = require('./searchMedicine.js');
@@ -10,7 +12,8 @@ const connectionObject = {
 		'/importMedicine': importMedicine
 	},
 	"POST": {
-		'/searchMedicine': searchMedicine
+		'/searchMedicine': searchMedicine,
+		'/getPrice': getPrice
 	}
 }
 

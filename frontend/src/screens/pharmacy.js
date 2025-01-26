@@ -14,9 +14,10 @@ const Pharmacy = ({ user, token }) => {
 	const [_results, setResults] = useState([])
 	const [prices, setPrices] = useState([])
 	
-	const results = search ? _results : prescription?.content.map(x => x.medicine.name) 
+	const results = search.length ? _results : prescription?.content?.map(x => x.medicine)
 
 	const { patientTC } = prescription || {}
+	
 
 	async function getPrescription() {
 		const data = {
@@ -29,7 +30,7 @@ const Pharmacy = ({ user, token }) => {
 		)
 		if(!res) return
 
-		setPrescription(res)
+		setPrescription(res.prescription)
 	}
 
 	async function verifyTC() {
@@ -73,22 +74,22 @@ const Pharmacy = ({ user, token }) => {
 		const data = {
 			owner: user._id,
 			content: content.filter(x => x.count > 0),
-			patientTC
+			prescription: prescriptionID
 		}
 
 		const res = await Api.post(
-			'/createPrescription',
+			'/createBill',
 			data
 		)
 		if(!res) return
 
-		window.alert('prescription added')
+		window.alert('bill added')
 		window.location.reload()
 	}
 
 	async function calculatePrice() {
 		const data = {
-			content: content.filter(x => x.count > 0)
+			content: content.filter(x => x.count > 0).map(x => x.medicine)
 		}
 
 		const res = await Api.post(
@@ -96,6 +97,7 @@ const Pharmacy = ({ user, token }) => {
 			data
 		)
 		if(!res) return
+
 		setPrices(res)
 	}
 
@@ -202,14 +204,25 @@ const Pharmacy = ({ user, token }) => {
 										i,
 										push
 									)}
+									price={prices && prices[x.medicine]}
 								/>
 							))}
 						</Col>
 					</Row>
 
-					<Button onClick={calculatePrice}>
-						Calculate Price
-					</Button>
+					<Row start>
+						<Button onClick={calculatePrice}>
+							Calculate Price
+						</Button>
+						
+						{prices && (
+							<Text>
+								{content.reduce((prev, curr) => {
+									return prev + prices[curr.medicine]*curr.count
+								}, 0)}
+							</Text>
+						)}
+					</Row>
 
 					<Button onClick={submit}>
 						Submit

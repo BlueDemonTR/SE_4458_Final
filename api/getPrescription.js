@@ -1,4 +1,5 @@
 import axios from "axios";
+import authorize from "../lib/authorize";
 
 async function getPrescription(req, res, id) {
 	const user = await authorize(id)

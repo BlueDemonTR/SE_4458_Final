@@ -1,3 +1,4 @@
+import calculatePrice from './calculatePrice';
 import createBill from './createBill';
 import createPrescription from './createPrescription';
 import getPrescription from './getPrescription';
@@ -23,7 +24,8 @@ const connectionObject = {
 		'/verifyTC': verifyTC,
 		'/createBill': createBill,
 		'/createPrescription': createPrescription,
-		'/searchMedicine': searchMedicine
+		'/searchMedicine': searchMedicine,
+		'/calculatePrice': calculatePrice
 	}
 }
 

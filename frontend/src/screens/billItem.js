@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Input, Row, Text } from '../components'
 
-const BillItem = ({ item, handleChange }) => {
+const BillItem = ({ item, handleChange, price }) => {
 	const { count, medicine } = item 
 
 	function handleEditCount(val) {
@@ -24,6 +24,10 @@ const BillItem = ({ item, handleChange }) => {
 				min={0}
 				wid='30px'
 			/>
+
+			{price && (
+				<Text>{count * price}</Text>
+			)}
 		</Row>
 	)
 }
