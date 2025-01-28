@@ -22,4 +22,4 @@ ER Map
 ![image](https://github.com/user-attachments/assets/39b383d7-a374-4c8f-af79-b25826ae3a80)
 > The medicines under the content property are being kept as strings to avoid unnecessary populates.
 
-Video: (coming soon)
+Video: [(youtube link)](https://youtu.be/xzY5rGKHkj0)
